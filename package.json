@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bitq": "^0.0.1",
     "cookie-parser": "^1.4.5",
     "js-cookie": "^2.2.1",
     "next": "11.0.1",

@@ -2,34 +2,35 @@ import Axios from "../../api/apiService";
 
 export async function authHandler(req){
   const { cookies } = req;
-  const { bitlite_session_id } = cookies
+  const { bitlite_session_id: bitliteSessionId } = cookies
 
-  if(bitlite_session_id){
+  if(bitliteSessionId){
     let [data, error] = [null, null];
-    await Axios.get("user", {
-      headers: {
-        Authorization: `Bearer ${bitlite_session_id}`
-      }
-    })
-      .then((res) => {
-        data = res.data;
-      })
-      .catch((err) => {
-        error = err
-      })
 
-    return {
-      props : {
-        user: data
+    try {
+      const res = await Axios.get("user", {
+        headers: {
+          Authorization: `Bearer ${bitliteSessionId}`
+        }
+      })
+      data = res.data;
+    }
+    catch (e) {
+      error = e;
+    }
+    if(error){
+      return {
+        isError: true
       }
+    }
+    return {
+      user: data,
+      bitliteSessionId,
     }
   }
   else{
     return {
-      props: {},
-      redirect: {
-        destination: 'https://bitbucket.org/site/oauth2/authorize?client_id=xn9n6AsXaK8fwGCeQY&response_type=token',
-      },
+      isError: true,
     }
   }
 }

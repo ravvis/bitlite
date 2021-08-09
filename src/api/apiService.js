@@ -15,23 +15,12 @@ const api = axios.create({
 const Axios = {
   ...axios,
   get: async (url, options) => {
-    return api
-      .get(url, options)
-      .then(response => response)
-      .catch(() => {
-        // serverLogger(null, null, err);
-        return { data: null }
-      })
+    return api.get(url, options)
   },
   post: async (url, payload = {}, options = {}) => {
     return api
       .post(url, payload, {
         ...options
-      })
-      .then(response => response)
-      .catch(() => {
-        // serverLogger(null, null, err);
-        return { data: null }
       })
   },
   put: async (url, payload = {}, options = {}) => {
@@ -39,21 +28,11 @@ const Axios = {
       .put(url, payload, {
         ...options
       })
-      .then(response => response)
-      .catch(() => {
-        // serverLogger(null, null, err);
-        return { data: null }
-      })
   },
   delete: async (url, options = {}) => {
     return axios
       .delete(url, {
         ...options
-      })
-      .then(response => response)
-      .catch(() => {
-        // serverLogger(null, null, err);
-        return { data: null }
       })
   },
 }
